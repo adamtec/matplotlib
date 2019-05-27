@@ -23,6 +23,10 @@ from . import _tkagg
 
 try:
     from ._tkagg import Win32_GetForegroundWindow, Win32_SetForegroundWindow
+except RuntimeError:
+    @contextmanager
+    def _restore_foreground_window_at_end():
+        yield
 except ImportError:
     @contextmanager
     def _restore_foreground_window_at_end():
